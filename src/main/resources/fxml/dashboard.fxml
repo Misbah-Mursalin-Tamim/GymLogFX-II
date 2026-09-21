@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.DashboardController"
+            style="-fx-background-color: #F4F5F7;">
+
+    <left>
+        <VBox fx:id="sidebar"
+              spacing="12"
+              prefWidth="200"
+              style="-fx-background-color: #EDEFF2;">
+
+            <padding>
+                <Insets top="30" right="15" bottom="30" left="15"/>
+            </padding>
+
+            <Label text="GymLogFX"
+                   style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #2D6CDF;"/>
+
+            <Button text="Dashboard" maxWidth="Infinity" onAction="#goToDashboard"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Exercises" maxWidth="Infinity" onAction="#goToExercises"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Routines" maxWidth="Infinity" onAction="#goToRoutines"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Log Workout" maxWidth="Infinity" onAction="#goToWorkoutLogger"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Progress" maxWidth="Infinity" onAction="#goToProgress"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="History" maxWidth="Infinity" onAction="#goToHistory"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <VBox fx:id="contentBox" spacing="25">
+
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+
+                <Label text="Welcome back!"
+                       style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #2D2D2D;"/>
+
+                <HBox fx:id="statsRow" spacing="20" maxWidth="Infinity">
+
+                    <AnchorPane fx:id="totalWorkoutsCard" prefHeight="100"
+                                style="-fx-background-color: white; -fx-background-radius: 12;">
+                        <Label text="Total Workouts"
+                               AnchorPane.topAnchor="15" AnchorPane.leftAnchor="15"
+                               style="-fx-text-fill: #8A8A8A; -fx-font-size: 13;"/>
+                        <Label fx:id="totalWorkoutsLabel" text="0"
+                               AnchorPane.bottomAnchor="15" AnchorPane.leftAnchor="15"
+                               style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2D2D2D;"/>
+                    </AnchorPane>
+
+                    <AnchorPane fx:id="totalExercisesCard" prefHeight="100"
+                                style="-fx-background-color: white; -fx-background-radius: 12;">
+                        <Label text="Total Exercises"
+                               AnchorPane.topAnchor="15" AnchorPane.leftAnchor="15"
+                               style="-fx-text-fill: #8A8A8A; -fx-font-size: 13;"/>
+                        <Label fx:id="totalExercisesLabel" text="0"
+                               AnchorPane.bottomAnchor="15" AnchorPane.leftAnchor="15"
+                               style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2D2D2D;"/>
+                    </AnchorPane>
+
+                    <AnchorPane fx:id="latestWorkoutCard" prefHeight="100"
+                                style="-fx-background-color: white; -fx-background-radius: 12;">
+                        <Label text="Latest Workout"
+                               AnchorPane.topAnchor="15" AnchorPane.leftAnchor="15"
+                               style="-fx-text-fill: #8A8A8A; -fx-font-size: 13;"/>
+                        <Label fx:id="latestWorkoutLabel" text="No workouts yet" wrapText="true"
+                               AnchorPane.bottomAnchor="15"
+                               AnchorPane.leftAnchor="15"
+                               AnchorPane.rightAnchor="15"
+                               style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #2D2D2D;"/>
+                    </AnchorPane>
+
+                </HBox>
+
+                <StackPane fx:id="chartCard" maxWidth="Infinity"
+                           style="-fx-background-color: white; -fx-background-radius: 12;">
+
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+
+                    <VBox spacing="10">
+                        <Label text="Recent Progress"
+                               style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+
+                        <LineChart fx:id="progressChart" maxWidth="Infinity" prefHeight="280"
+                                   legendVisible="false">
+                            <xAxis>
+                                <CategoryAxis label="Date"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Weight (kg)"/>
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+
+                </StackPane>
+
+                <AnchorPane fx:id="tipCard" prefHeight="90" maxWidth="Infinity"
+                            style="-fx-background-color: #2D6CDF; -fx-background-radius: 12;">
+
+                    <Label text="Today's Fitness Tip"
+                           AnchorPane.topAnchor="15" AnchorPane.leftAnchor="15"
+                           style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14;"/>
+
+                    <Label fx:id="tipLabel" text="Loading..." wrapText="true"
+                           AnchorPane.topAnchor="40" AnchorPane.leftAnchor="15" AnchorPane.rightAnchor="15"
+                           style="-fx-text-fill: white; -fx-font-size: 13;"/>
+
+                </AnchorPane>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

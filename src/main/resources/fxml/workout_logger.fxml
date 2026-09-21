@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.WorkoutLoggerController"
+            style="-fx-background-color: #F4F5F7;">
+
+    <left>
+        <VBox fx:id="sidebar"
+              spacing="12"
+              prefWidth="200"
+              style="-fx-background-color: #EDEFF2;">
+
+            <padding>
+                <Insets top="30" right="15" bottom="30" left="15"/>
+            </padding>
+
+            <Label text="GymLogFX"
+                   style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #2D6CDF;"/>
+
+            <Button text="Dashboard" maxWidth="Infinity" onAction="#goToDashboard"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Exercises" maxWidth="Infinity" onAction="#goToExercises"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Routines" maxWidth="Infinity" onAction="#goToRoutines"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Log Workout" maxWidth="Infinity" onAction="#goToWorkoutLogger"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Progress" maxWidth="Infinity" onAction="#goToProgress"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="History" maxWidth="Infinity" onAction="#goToHistory"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true"
+                    style="-fx-background: transparent; -fx-background-color: transparent;">
+
+            <VBox spacing="25">
+
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+
+                <Label text="Log Workout"
+                       style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #2D2D2D;"/>
+
+                <VBox fx:id="formCard" spacing="16" maxWidth="Infinity"
+                      style="-fx-background-color: white; -fx-background-radius: 12;">
+
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <GridPane hgap="15" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="70"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints minWidth="70"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="Routine:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="routineComboBox" maxWidth="Infinity"
+                                  GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Date:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <DatePicker fx:id="datePicker" maxWidth="Infinity"
+                                    GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                        <Label text="Exercise:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="exerciseComboBox" maxWidth="Infinity"
+                                  GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Weight (kg):" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <TextField fx:id="weightField" promptText="e.g. 60"
+                                   GridPane.rowIndex="1" GridPane.columnIndex="3"
+                                   style="-fx-background-radius: 6; -fx-padding: 6;"/>
+
+                        <Label text="Reps:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="repsField" promptText="e.g. 8"
+                                   GridPane.rowIndex="2" GridPane.columnIndex="1"
+                                   style="-fx-background-radius: 6; -fx-padding: 6;"/>
+
+                    </GridPane>
+
+                    <Label fx:id="statusLabel" wrapText="true"
+                           style="-fx-text-fill: #D9534F; -fx-font-size: 12;"
+                           visible="false" managed="false"/>
+
+                    <HBox spacing="10">
+                        <Button text="Add Set" onAction="#handleAddSet"
+                                style="-fx-background-color: #EDEFF2; -fx-background-radius: 6; -fx-padding: 8 16;"/>
+
+                        <Button text="Remove Selected Set" onAction="#handleRemoveSet"
+                                style="-fx-background-color: #D9534F; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16;"/>
+                    </HBox>
+
+                </VBox>
+
+                <VBox fx:id="tableCard" spacing="14" maxWidth="Infinity"
+                      style="-fx-background-color: white; -fx-background-radius: 12;">
+
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <Label text="Sets for this Workout"
+                           style="-fx-font-size: 15; -fx-font-weight: bold;"/>
+
+                    <TableView fx:id="setsTable" prefHeight="250">
+                        <columns>
+                            <TableColumn fx:id="exerciseColumn" text="Exercise"/>
+                            <TableColumn fx:id="weightColumn" text="Weight (kg)"/>
+                            <TableColumn fx:id="repsColumn" text="Reps"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox alignment="CENTER_RIGHT">
+                        <Button text="Save Workout" onAction="#handleSaveWorkout"
+                                style="-fx-background-color: #2D6CDF; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 10 20; -fx-font-weight: bold;"/>
+                    </HBox>
+
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

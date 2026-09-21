@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="rootPane"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.ExerciseController"
+            style="-fx-background-color: #F4F5F7;">
+
+    <left>
+        <VBox fx:id="sidebar"
+              spacing="12"
+              prefWidth="200"
+              style="-fx-background-color: #EDEFF2;">
+
+            <padding>
+                <Insets top="30" right="15" bottom="30" left="15"/>
+            </padding>
+
+            <Label text="GymLogFX"
+                   style="-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #2D6CDF;"/>
+
+            <Button text="Dashboard" maxWidth="Infinity" onAction="#goToDashboard"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Exercises" maxWidth="Infinity" onAction="#goToExercises"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Routines" maxWidth="Infinity" onAction="#goToRoutines"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Log Workout" maxWidth="Infinity" onAction="#goToWorkoutLogger"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="Progress" maxWidth="Infinity" onAction="#goToProgress"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+            <Button text="History" maxWidth="Infinity" onAction="#goToHistory"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 10;"/>
+
+        </VBox>
+    </left>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true"
+                    style="-fx-background: transparent; -fx-background-color: transparent;">
+
+            <VBox spacing="25">
+
+                <padding>
+                    <Insets top="30" right="30" bottom="30" left="30"/>
+                </padding>
+
+                <Label text="Exercises"
+                       style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #2D2D2D;"/>
+
+                <HBox fx:id="mainRow" spacing="25" maxWidth="Infinity">
+
+                    <VBox fx:id="formCard" spacing="14" prefWidth="300"
+                          style="-fx-background-color: white; -fx-background-radius: 12;">
+
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+
+                        <Label text="Add / Edit Exercise"
+                               style="-fx-font-size: 15; -fx-font-weight: bold;"/>
+
+                        <GridPane hgap="10" vgap="12">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="70"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+
+                            <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="nameField" maxWidth="Infinity"
+                                       GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                       style="-fx-background-radius: 6; -fx-padding: 6;"/>
+
+                            <Label text="Muscle:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="muscleComboBox" maxWidth="Infinity"
+                                      GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                        </GridPane>
+
+                        <Label fx:id="statusLabel" wrapText="true"
+                               style="-fx-text-fill: #D9534F; -fx-font-size: 12;"
+                               visible="false" managed="false"/>
+
+                        <HBox spacing="10">
+                            <Button text="Add" onAction="#handleAdd"
+                                    style="-fx-background-color: #2D6CDF; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16;"/>
+
+                            <Button text="Update" onAction="#handleUpdate"
+                                    style="-fx-background-color: #EDEFF2; -fx-background-radius: 6; -fx-padding: 8 16;"/>
+
+                            <Button text="Clear" onAction="#handleClear"
+                                    style="-fx-background-color: #EDEFF2; -fx-background-radius: 6; -fx-padding: 8 16;"/>
+                        </HBox>
+
+                    </VBox>
+
+                    <VBox fx:id="tableCard" spacing="14" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12;">
+
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="20"/>
+                        </padding>
+
+                        <Label text="All Exercises"
+                               style="-fx-font-size: 15; -fx-font-weight: bold;"/>
+
+                        <TableView fx:id="exerciseTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="nameColumn" text="Exercise" prefWidth="150"/>
+                                <TableColumn fx:id="muscleColumn" text="Muscle" prefWidth="150"/>
+                            </columns>
+                        </TableView>
+
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button text="Delete Selected" onAction="#handleDelete"
+                                    style="-fx-background-color: #D9534F; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16;"/>
+                        </HBox>
+
+                    </VBox>
+
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
